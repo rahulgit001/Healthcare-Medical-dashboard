@@ -5,32 +5,32 @@ export default {
   theme: {
     extend: {
       colors: {
-        primary: "#3B82F6",
-        secondary: "#6366F1",
-        success: "#22C55E",
-        warning: "#F59E0B",
-        danger: "#EF4444",
-        bg: "#F7F9FC",
+        primary: "#159A9C",
+        secondary: "#12304A",
+        success: "#3AA981",
+        warning: "#E9A23B",
+        danger: "#D95C5C",
+        bg: "#F5F7FA",
         card: "#FFFFFF",
-        ink: "#111827",
-        muted: "#6B7280",
+        ink: "#17212B",
+        muted: "#6B7785",
         dark: {
-          bg: "#0F1115",
-          card: "#171A21",
-          border: "#262B36",
+          bg: "#0F172A",
+          card: "#17212B",
+          border: "#273548",
         },
       },
       fontFamily: {
-        sans: ["Inter", "system-ui", "sans-serif"],
+        sans: ["DM Sans", "Manrope", "system-ui", "sans-serif"],
       },
       borderRadius: {
-        card: "24px",
+        card: "10px",
         pill: "999px",
       },
       boxShadow: {
-        soft: "0 4px 24px rgba(17, 24, 39, 0.06)",
-        softer: "0 2px 12px rgba(17, 24, 39, 0.04)",
-        lift: "0 12px 32px rgba(17, 24, 39, 0.12)",
+        soft: "0 4px 16px rgba(18, 48, 74, 0.06)",
+        softer: "0 2px 8px rgba(18, 48, 74, 0.04)",
+        lift: "0 8px 24px rgba(18, 48, 74, 0.12)",
       },
       backgroundImage: {
         "hero-gradient": "linear-gradient(135deg, #3B82F6 0%, #6366F1 100%)",

@@ -10,7 +10,7 @@ const statusConfig = {
 
 export default function Timeline() {
   return (
-    <div className="relative overflow-hidden min-w-0 min-h-0 box-border rounded-3xl bg-card dark:bg-dark-card border border-slate-100 shadow-lg p-6">
+    <div className="relative min-w-0 min-h-0 box-border rounded-lg border border-[#E3E8EE] bg-card p-5 shadow-soft dark:border-dark-border dark:bg-dark-card">
       <h3 className="font-bold text-ink dark:text-white mb-5">Today's Activity</h3>
       <div className="relative pl-6">
         <div className="absolute left-[11px] top-1 bottom-1 w-px bg-gray-100 dark:bg-dark-border" />

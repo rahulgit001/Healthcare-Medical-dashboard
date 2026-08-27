@@ -29,7 +29,7 @@ export default function Dashboard() {
     return (
       <div className="space-y-6">
         <Skeleton className="h-56 w-full" />
-        <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-6">
+        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-4">
           {Array.from({ length: 4 }).map((_, i) => (
             <Skeleton key={i} className="h-36 w-full" />
           ))}
@@ -46,14 +46,14 @@ export default function Dashboard() {
     <div className="space-y-6">
       <Hero />
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-6">
+      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-4">
         {statCards.map((s, i) => (
           <StatCard key={s.id} stat={s} index={i} />
         ))}
       </div>
 
-      <div className="grid grid-cols-1 xl:grid-cols-[2fr_1fr] gap-6">
-        <motion.div className="self-start" initial="hidden" whileInView="show" viewport={{ once: true }} variants={fadeUp}>
+      <div className="grid grid-cols-1 gap-5 xl:grid-cols-[2fr_1fr]">
+        <motion.div initial="hidden" whileInView="show" viewport={{ once: true }} variants={fadeUp}>
           <HealthChart />
         </motion.div>
         <motion.div className="self-start" initial="hidden" whileInView="show" viewport={{ once: true }} variants={fadeUp}>
@@ -61,7 +61,7 @@ export default function Dashboard() {
         </motion.div>
       </div>
 
-      <div className="grid grid-cols-1 xl:grid-cols-[2fr_1fr] gap-6">
+      <div className="grid grid-cols-1 gap-5 xl:grid-cols-[2fr_1fr]">
         <motion.div initial="hidden" whileInView="show" viewport={{ once: true }} variants={fadeUp}>
           <AppointmentList appointments={appointments} />
         </motion.div>
@@ -80,7 +80,7 @@ export default function Dashboard() {
           </div>
           <h3 className="font-bold text-ink dark:text-white">Health Status Overview</h3>
         </div>
-        <div className="grid grid-cols-2 sm:grid-cols-3 xl:grid-cols-6 gap-4">
+        <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 xl:grid-cols-6">
           {healthStatus.map((h, i) => (
             <HealthCard key={h.id} item={h} index={i} />
           ))}
@@ -89,7 +89,7 @@ export default function Dashboard() {
 
       <QuickActions />
 
-      <div className="grid grid-cols-1 xl:grid-cols-[2fr_1fr] gap-6">
+      <div className="grid grid-cols-1 gap-5 xl:grid-cols-[2fr_1fr]">
         <div>
           <Timeline />
         </div>

@@ -14,11 +14,13 @@ import {
   User,
   Users,
   Accessibility,
+  CalendarDays,
 } from "lucide-react";
 
 import { demographics } from "../../data/dummyData";
 
 const total = 2543;
+const averageAge = 36.8;
 
 const iconMap = {
   Children: Baby,
@@ -27,275 +29,600 @@ const iconMap = {
   Senior: Accessibility,
 };
 
+/* -------------------------------------------------------
+   Make sure the four demographic values are:
+
+   Children   → 18%
+   Adults     → 32%
+   Middle Age → 28%
+   Senior     → 22%
+------------------------------------------------------- */
+
+const getDemographic = (name, fallbackValue, fallbackColor) => {
+  const item = demographics.find((d) => d.name === name);
+
+  return {
+    name,
+    value: item?.value ?? fallbackValue,
+    color: item?.color ?? fallbackColor,
+  };
+};
+
+const chartData = [
+  getDemographic("Children", 18, "#60A5FA"),
+  getDemographic("Adults", 32, "#3B82F6"),
+  getDemographic("Middle Age", 28, "#6366F1"),
+  getDemographic("Senior", 22, "#818CF8"),
+];
+
+/* -------------------------------------------------------
+   Tooltip
+------------------------------------------------------- */
+
 function CustomTooltip({ active, payload }) {
   if (!active || !payload?.length) return null;
 
   const item = payload[0].payload;
 
   return (
-    <div className="rounded-2xl bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-700 shadow-[0_20px_60px_rgba(15,23,42,.12)] px-5 py-4">
-      <div className="flex items-center gap-3">
-
+    <div
+      className="
+        rounded-xl
+        border
+        border-[#E3E8EE]
+        bg-white
+        px-3
+        py-2.5
+        shadow-[0_10px_30px_rgba(18,48,74,0.12)]
+      "
+    >
+      <div className="flex items-center gap-2">
         <span
-          className="w-3 h-3 rounded-full"
-          style={{ background: item.color }}
+          className="h-2.5 w-2.5 rounded-full"
+          style={{ backgroundColor: item.color }}
         />
 
-        <p className="font-semibold text-slate-800 dark:text-white">
+        <span className="text-xs font-semibold text-[#17212B]">
           {item.name}
-        </p>
-
+        </span>
       </div>
 
-      <p className="mt-2 text-lg font-bold text-slate-900 dark:text-white">
+      <p
+        className="mt-1 text-lg font-bold"
+        style={{ color: item.color }}
+      >
         {item.value}%
       </p>
     </div>
   );
 }
 
-export default function DemographicsChart() {
+/* -------------------------------------------------------
+   Demographic Card
+------------------------------------------------------- */
+
+function DemographicCard({
+  item,
+  position,
+  index,
+}) {
+  const Icon = iconMap[item.name] || Users;
+
   return (
     <motion.div
-      initial={{ opacity: 0, y: 25 }}
-      whileInView={{ opacity: 1, y: 0 }}
+      initial={{
+        opacity: 0,
+        y: position.includes("top") ? -8 : 8,
+      }}
+      whileInView={{
+        opacity: 1,
+        y: 0,
+      }}
       viewport={{ once: true }}
-      transition={{ duration: 0.5 }}
-      className="relative overflow-hidden min-w-0 min-h-0 box-border rounded-[28px] bg-white dark:bg-dark-card border border-slate-200 dark:border-slate-700 shadow-soft hover:shadow-[0_18px_48px_rgba(15,23,42,0.08)] transition-all duration-300 p-6"
+      transition={{
+        duration: 0.35,
+        delay: index * 0.06,
+      }}
+      whileHover={{
+        y: -2,
+        boxShadow: "0 12px 28px rgba(18,48,74,0.10)",
+      }}
+      className={`
+        absolute
+        z-20
+        w-[135px]
+        rounded-xl
+        border
+        border-[#E3E8EE]
+        bg-white
+        p-3
+        shadow-[0_4px_16px_rgba(18,48,74,0.055)]
+        transition-shadow
+
+        ${position === "top-left"
+          ? "left-0 top-0"
+          : ""}
+
+        ${position === "top-right"
+          ? "right-0 top-0"
+          : ""}
+
+        ${position === "bottom-left"
+          ? "bottom-0 left-0"
+          : ""}
+
+        ${position === "bottom-right"
+          ? "bottom-0 right-0"
+          : ""}
+
+        max-w-[115px]
+        sm:w-[150px]
+        sm:max-w-none
+      `}
     >
+      {/* Icon + Percentage */}
 
-      {/* background blur */}
-
-      <div className="absolute -top-16 -right-16 h-56 w-56 rounded-full bg-blue-100 blur-3xl opacity-40"/>
-
-      <div className="absolute -bottom-10 -left-10 h-20 w-20 rounded-full bg-purple-100 blur-3xl opacity-40"/>
-
-      {/* Header */}
-
-      <div className="relative flex items-center justify-between mb-4">
-
-        <div className="flex items-center gap-4">
-
-          <div className="h-14 w-14 rounded-2xl bg-gradient-to-br from-blue-500 to-indigo-600 flex items-center justify-center text-white shadow-xl">
-
-            <PieChartIcon size={26}/>
-
-          </div>
-
-          <div>
-
-            <h2 className="text-xl font-bold text-slate-900 dark:text-white">
-
-              Patient Demographics
-
-            </h2>
-
-            <p className="text-sm text-slate-500">
-
-              Distribution by age group
-
-            </p>
-
-          </div>
-
+      <div className="flex items-center justify-between gap-2">
+        <div
+          className="
+            flex
+            h-8
+            w-8
+            shrink-0
+            items-center
+            justify-center
+            rounded-lg
+          "
+          style={{
+            backgroundColor: `${item.color}15`,
+            color: item.color,
+          }}
+        >
+          <Icon size={15} />
         </div>
 
-        <button className="rounded-xl bg-slate-100 dark:bg-slate-800 px-4 py-2 text-sm font-semibold">
-
-          This Month
-
-        </button>
-
+        <span
+          className="text-[18px] font-extrabold leading-none"
+          style={{
+            color: item.color,
+          }}
+        >
+          {item.value}%
+        </span>
       </div>
 
-      <div className="grid lg:grid-cols-[240px_1fr] gap-6 items-center">
+      {/* Name */}
 
-        {/* Donut */}
+      <p
+        className="
+          mt-2
+          truncate
+          text-[11px]
+          font-semibold
+          text-[#17212B]
+        "
+      >
+        {item.name}
+      </p>
 
-        <div className="relative h-[300px]">
+      {/* Progress */}
 
-          <ResponsiveContainer width="100%" height="100%">
+      <div
+        className="
+          mt-2
+          h-1.5
+          w-full
+          overflow-hidden
+          rounded-full
+          bg-[#E9EDF1]
+        "
+      >
+        <motion.div
+          initial={{ width: 0 }}
+          whileInView={{
+            width: `${item.value}%`,
+          }}
+          viewport={{ once: true }}
+          transition={{
+            duration: 0.7,
+            delay: index * 0.08,
+          }}
+          className="h-full rounded-full"
+          style={{
+            backgroundColor: item.color,
+          }}
+        />
+      </div>
+    </motion.div>
+  );
+}
 
+/* -------------------------------------------------------
+   Main Component
+------------------------------------------------------- */
+
+export default function DemographicsChart() {
+  return (
+    <motion.section
+      initial={{
+        opacity: 0,
+        y: 12,
+      }}
+      whileInView={{
+        opacity: 1,
+        y: 0,
+      }}
+      viewport={{
+        once: true,
+      }}
+      transition={{
+        duration: 0.4,
+      }}
+      className="
+        demographics-chart
+        relative
+        h-full
+        min-h-0
+        min-w-0
+        overflow-hidden
+        rounded-[10px]
+        border
+        border-[#E3E8EE]
+        bg-white
+        p-5
+        shadow-[0_4px_16px_rgba(18,48,74,0.06)]
+      "
+    >
+      {/* -------------------------------------------------
+          HEADER
+      ------------------------------------------------- */}
+
+      <div
+        className="
+          relative
+          z-30
+          flex
+          items-center
+          justify-between
+          gap-4
+        "
+      >
+        {/* Title */}
+
+        <div className="flex min-w-0 items-center gap-3">
+          <div
+            className="
+              flex
+              h-10
+              w-10
+              shrink-0
+              items-center
+              justify-center
+              rounded-lg
+              bg-[#EFF6FF]
+              text-[#3B82F6]
+            "
+          >
+            <PieChartIcon size={19} />
+          </div>
+
+          <div className="min-w-0">
+            <h2
+              className="
+                truncate
+                text-[16px]
+                font-bold
+                leading-5
+                text-[#17212B]
+              "
+            >
+              Patient Demographics
+            </h2>
+
+            <p className="mt-0.5 text-[12px] text-[#6B7785]">
+              Distribution by age group
+            </p>
+          </div>
+        </div>
+
+        {/* Period */}
+
+        <button
+          type="button"
+          className="
+            hidden
+            h-9
+            shrink-0
+            items-center
+            rounded-md
+            border
+            border-[#E3E8EE]
+            bg-white
+            px-3
+            text-[12px]
+            font-semibold
+            text-[#6B7785]
+            transition-colors
+            hover:bg-[#F5F7FA]
+            sm:flex
+          "
+        >
+          This Month
+        </button>
+      </div>
+
+      {/* -------------------------------------------------
+          RADIAL AREA
+      ------------------------------------------------- */}
+
+      <div
+        className="
+          relative
+          mx-auto
+          mt-4
+          h-[360px]
+          w-full
+          max-w-[560px]
+          sm:h-[380px]
+        "
+      >
+        {/* ===============================================
+            TOP LEFT — 18%
+        =============================================== */}
+
+        <DemographicCard
+          item={chartData[0]}
+          position="top-left"
+          index={0}
+        />
+
+        {/* ===============================================
+            TOP RIGHT — 32%
+        =============================================== */}
+
+        <DemographicCard
+          item={chartData[1]}
+          position="top-right"
+          index={1}
+        />
+
+        {/* ===============================================
+            BOTTOM LEFT — 22%
+        =============================================== */}
+
+        <DemographicCard
+          item={chartData[3]}
+          position="bottom-left"
+          index={2}
+        />
+
+        {/* ===============================================
+            BOTTOM RIGHT — 28%
+        =============================================== */}
+
+        <DemographicCard
+          item={chartData[2]}
+          position="bottom-right"
+          index={3}
+        />
+
+        {/* ===============================================
+            CENTER DONUT
+        =============================================== */}
+
+        <div
+          className="
+            absolute
+            left-1/2
+            top-1/2
+            z-10
+            aspect-square
+            h-[180px]
+            w-[180px]
+            sm:h-[400px]
+            sm:w-[400px]
+            -translate-x-1/2
+            -translate-y-1/2
+          "
+        >
+          <ResponsiveContainer
+            width="100%"
+            height="100%"
+            aspect={1}
+          >
             <PieChart>
-
               <Pie
-                data={demographics}
+                data={chartData}
                 dataKey="value"
-                innerRadius={82}
-                outerRadius={115}
-                paddingAngle={5}
-                cornerRadius={18}
-                stroke="#fff"
-                strokeWidth={5}
-                animationDuration={1400}
+                nameKey="name"
+                cx="50%"
+                cy="50%"
+                innerRadius="32%"
+                outerRadius="45%"
+                paddingAngle={3}
+                cornerRadius={8}
+                stroke="#FFFFFF"
+                strokeWidth={3}
+                animationDuration={700}
+                animationBegin={100}
               >
-
-                {demographics.map((item) => (
-
+                {chartData.map((item) => (
                   <Cell
                     key={item.name}
                     fill={item.color}
                   />
-
                 ))}
-
               </Pie>
 
-              <Tooltip content={<CustomTooltip/>}/>
-
+              <Tooltip
+                content={<CustomTooltip />}
+                cursor={false}
+              />
             </PieChart>
-
           </ResponsiveContainer>
 
-          {/* Center */}
+          {/* =============================================
+              CENTER CONTENT
+          ============================================= */}
 
-          <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none">
-            <span className="absolute h-32 w-32 rounded-full bg-blue-100/60 dark:bg-blue-500/10" />
-            <UsersRound className="text-blue-500 mb-3 z-10" size={26} />
-            <h2 className="text-4xl font-black text-slate-900 dark:text-white z-10">
-              {total}
-            </h2>
-            <p className="text-sm text-slate-500 z-10">Total Patients</p>
+          <div
+            className="
+              pointer-events-none
+              absolute
+              inset-0
+              flex
+              flex-col
+              items-center
+              justify-center
+            "
+          >
+            {/* Icon */}
+
+            <div
+              className="
+                mb-1.5
+                flex
+                h-8
+                w-8
+                items-center
+                justify-center
+                rounded-full
+                bg-[#EFF6FF]
+              "
+            >
+              <UsersRound
+                size={15}
+                className="text-[#3B82F6]"
+              />
+            </div>
+
+            {/* Number */}
+
+            <h3
+              className="
+                text-[26px]
+                font-extrabold
+                leading-7
+                tracking-tight
+                text-[#12304A]
+              "
+            >
+              {total.toLocaleString()}
+            </h3>
+
+            {/* Label */}
+
+            <p
+              className="
+                mt-1
+                text-[10px]
+                font-medium
+                text-[#6B7785]
+              "
+            >
+              Total Patients
+            </p>
+          </div>
+        </div>
+
+      </div>
+
+      {/* -------------------------------------------------
+          AVERAGE AGE
+      ------------------------------------------------- */}
+
+      <motion.div
+        initial={{
+          opacity: 0,
+          y: 8,
+        }}
+        whileInView={{
+          opacity: 1,
+          y: 0,
+        }}
+        viewport={{
+          once: true,
+        }}
+        transition={{
+          duration: 0.35,
+          delay: 0.25,
+        }}
+        className="
+          relative
+          z-20
+          mx-auto
+          mt-3
+          flex
+          max-w-[220px]
+          items-center
+          justify-center
+          gap-3
+          rounded-xl
+          border
+          border-[#E3E8EE]
+          bg-[#FAFBFC]
+          px-4
+          py-2.5
+        "
+      >
+        {/* Icon */}
+
+        <div
+          className="
+            flex
+            h-9
+            w-9
+            shrink-0
+            items-center
+            justify-center
+            rounded-lg
+            bg-[#EFF6FF]
+            text-[#3B82F6]
+          "
+        >
+          <CalendarDays size={16} />
+        </div>
+
+        {/* Text */}
+
+        <div className="flex items-center gap-2">
+          <div>
+            <p
+              className="
+                text-[10px]
+                font-medium
+                leading-4
+                text-[#6B7785]
+              "
+            >
+              Average Age
+            </p>
+
+            <p
+              className="
+                text-[20px]
+                font-extrabold
+                leading-6
+                text-[#12304A]
+              "
+            >
+              {averageAge}
+            </p>
           </div>
 
+          <span
+            className="
+              mt-3
+              text-[10px]
+              font-medium
+              text-[#6B7785]
+            "
+          >
+            years
+          </span>
         </div>
+      </motion.div>
 
-        {/* PART 2 continues here... */}
-                {/* Legend */}
-
-        <div className="grid grid-cols-2 gap-4">
-
-          {demographics.map((item, index) => {
-            const Icon = iconMap[item.name] || Users;
-
-            return (
-              <motion.div
-                key={item.name}
-                initial={{ opacity: 0, x: 30 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true }}
-                transition={{
-                  duration: 0.45,
-                  delay: index * 0.08,
-                }}
-                whileHover={{
-                  y: -3,
-                  scale: 1.02,
-                }}
-                className="rounded-[24px] border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800/50 p-4 transition-all duration-300 h-full"
-              >
-                <div className="flex items-center justify-between">
-
-                  <div className="flex items-center gap-3">
-
-                    <div
-                      className="flex h-5 w-8 items-center justify-center rounded-xl text-white shadow-md"
-                      style={{
-                        background: item.color,
-                      }}
-                    >
-                      <Icon size={20} />
-                    </div>
-
-                    <div>
-
-                      <h4 className="font-semibold text-slate-900 dark:text-white">
-                        {item.name}
-                      </h4>
-
-                      <p className="text-xs text-slate-500">
-                        Patient Group
-                      </p>
-
-                    </div>
-
-                  </div>
-
-                  <div className="text-right">
-
-                    <h3
-                      className="text-2xl font-black"
-                      style={{
-                        color: item.color,
-                      }}
-                    >
-                      {item.value}%
-                    </h3>
-
-                  </div>
-
-                </div>
-
-                <div className="mt-4 h-2.5 w-full overflow-hidden rounded-full bg-slate-200 dark:bg-slate-700">
-
-                  <motion.div
-                    initial={{ width: 0 }}
-                    whileInView={{ width: `${item.value}%` }}
-                    viewport={{ once: true }}
-                    transition={{
-                      duration: 1,
-                      delay: index * 0.15,
-                    }}
-                    className="h-full rounded-full"
-                    style={{
-                      background: item.color,
-                    }}
-                  />
-
-                </div>
-
-              </motion.div>
-            );
-          })}
-
-        </div>
-
-      </div>
-
-      {/* Bottom Statistics */}
-
-      <div className="mt-6 grid grid-cols-2 gap-4">
-
-        <motion.div
-          whileHover={{ y: -4 }}
-          className="rounded-2xl bg-gradient-to-r from-blue-500 to-indigo-600 p-5 text-white shadow-softer"
-        >
-
-          <p className="text-sm opacity-90">
-
-            Total Patients
-
-          </p>
-
-          <h2 className="mt-2 text-3xl font-black">
-
-            {total}
-
-          </h2>
-
-        </motion.div>
-
-        <motion.div
-          whileHover={{ y: -4 }}
-          className="rounded-2xl border border-slate-100 dark:border-slate-700 bg-white dark:bg-slate-800 p-5 shadow-softer"
-        >
-
-          <p className="text-sm text-slate-500">
-
-            Average Age
-
-          </p>
-
-          <h2 className="mt-1 text-3xl font-black text-slate-900 dark:text-white">
-
-            36.8
-
-          </h2>
-
-        </motion.div>
-
-      </div>
-
-    </motion.div>
+    </motion.section>
   );
 }

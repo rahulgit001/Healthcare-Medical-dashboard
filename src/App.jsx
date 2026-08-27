@@ -24,11 +24,11 @@ export default function App() {
     <div className="flex min-h-screen bg-bg dark:bg-dark-bg">
       <Sidebar open={sidebarOpen} onClose={() => setSidebarOpen(false)} />
 
-      <div className="flex-1 min-w-0 flex flex-col">
+      <div className="flex-1 min-w-0 flex flex-col lg:ml-[248px]">
         <Navbar onMenuClick={() => setSidebarOpen(true)} />
 
         <main className="flex-1 overflow-hidden">
-          <div className="w-full max-w-[1320px] mx-auto px-4 sm:px-6 xl:px-10 py-8">
+          <div className="w-full max-w-[1320px] mx-auto px-4 sm:px-6 lg:px-8 py-6 lg:py-8">
             <AnimatedRoutes />
           </div>
         </main>

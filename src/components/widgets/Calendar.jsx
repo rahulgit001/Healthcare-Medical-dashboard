@@ -29,7 +29,7 @@ export default function CalendarWidget() {
   const changeMonth = (delta) => setCursor(new Date(year, month + delta, 1));
 
   return (
-    <div className="relative overflow-hidden min-w-0 min-h-0 box-border rounded-3xl bg-card dark:bg-dark-card border border-slate-100 shadow-lg p-6">
+    <div className="relative min-w-0 min-h-0 box-border rounded-lg border border-[#E3E8EE] bg-card p-5 shadow-soft dark:border-dark-border dark:bg-dark-card">
       <div className="flex items-center justify-between mb-5">
         <h3 className="font-semibold text-ink dark:text-white text-lg">{monthLabel}</h3>
         <div className="flex gap-2">

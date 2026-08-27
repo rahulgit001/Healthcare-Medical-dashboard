@@ -26,12 +26,12 @@ export default function AppointmentList({ appointments, title = "Upcoming Appoin
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       transition={{ type: "spring", stiffness: 240, damping: 20, duration: 0.45 }}
-      className="relative overflow-hidden min-w-0 min-h-0 box-border rounded-[28px] bg-white dark:bg-dark-card border border-slate-200 shadow-soft p-6 h-[440px]"
+      className="relative min-w-0 min-h-0 box-border rounded-lg border border-[#E3E8EE] bg-white p-5 shadow-soft dark:border-dark-border dark:bg-dark-card h-[420px]"
     >
       <div className="flex flex-col gap-4 mb-5">
         <div className="flex items-start justify-between gap-4">
           <div>
-            <h3 className="font-semibold text-ink dark:text-white text-xl">{title}</h3>
+            <h3 className="font-bold text-ink dark:text-white text-base">{title}</h3>
             <p className="text-sm text-muted mt-1">{subtitle}</p>
           </div>
           <button
@@ -51,13 +51,13 @@ export default function AppointmentList({ appointments, title = "Upcoming Appoin
               value={search}
               onChange={(e) => setSearch(e.target.value)}
               placeholder="Search appointments..."
-              className="w-full pl-10 pr-3 py-2 rounded-full bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-sm outline-none text-ink dark:text-white"
+              className="h-10 w-full rounded-md border border-[#E3E8EE] bg-[#F5F7FA] pl-10 pr-3 text-sm outline-none text-ink dark:border-dark-border dark:bg-slate-900 dark:text-white"
             />
           </div>
           <select
             value={filterStatus}
             onChange={(e) => setFilterStatus(e.target.value)}
-            className="w-full sm:w-[180px] rounded-full border border-slate-200 dark:border-slate-800 bg-slate-100 dark:bg-slate-900 px-4 py-2 text-sm text-ink dark:text-white outline-none"
+            className="h-10 w-full rounded-md border border-[#E3E8EE] bg-[#F5F7FA] px-4 text-sm text-ink dark:border-dark-border dark:bg-slate-900 dark:text-white outline-none"
           >
             <option value="">All statuses</option>
             <option value="Confirmed">Confirmed</option>

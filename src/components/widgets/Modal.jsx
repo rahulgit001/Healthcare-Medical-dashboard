@@ -18,7 +18,7 @@ export default function Modal({ open, onClose, title, children, footer }) {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: 24 }}
             transition={{ duration: 0.18 }}
-            className="fixed inset-x-4 top-10 z-50 mx-auto max-h-[calc(100vh-3rem)] w-auto max-w-3xl overflow-hidden rounded-[28px] bg-white dark:bg-dark-card shadow-lift"
+            className="fixed inset-x-4 top-6 z-50 mx-auto max-h-[calc(100vh-3rem)] w-auto max-w-3xl overflow-hidden rounded-lg bg-white shadow-lift dark:bg-dark-card"
           >
             <div className="flex items-center justify-between px-6 py-5 border-b border-slate-200 dark:border-slate-800">
               <h2 className="text-lg font-semibold text-ink dark:text-white">{title}</h2>
@@ -26,8 +26,8 @@ export default function Modal({ open, onClose, title, children, footer }) {
                 <X size={20} />
               </button>
             </div>
-            <div className="max-h-[calc(100vh-13rem)] overflow-y-auto p-6">{children}</div>
-            {footer && <div className="border-t border-slate-200 dark:border-slate-800 p-6">{footer}</div>}
+            <div className="max-h-[calc(100vh-13rem)] overflow-y-auto p-5">{children}</div>
+            {footer && <div className="border-t border-slate-200 p-5 dark:border-dark-border">{footer}</div>}
           </motion.div>
         </>
       ) : null}

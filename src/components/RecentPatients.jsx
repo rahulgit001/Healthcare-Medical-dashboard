@@ -10,7 +10,7 @@ export default function RecentPatients({ patients, title = "Recent Patients" }) 
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       transition={{ type: "spring", stiffness: 260, damping: 22, duration: 0.45 }}
-      className="relative overflow-hidden min-w-0 min-h-0 box-border rounded-[28px] bg-white dark:bg-dark-card border border-slate-200 shadow-soft p-6 h-[340px]"
+      className="relative min-w-0 min-h-0 box-border rounded-lg border border-[#E3E8EE] bg-white p-5 shadow-soft dark:border-dark-border dark:bg-dark-card h-[320px]"
     >
       <div className="flex items-center justify-between gap-3 mb-5">
         <div>

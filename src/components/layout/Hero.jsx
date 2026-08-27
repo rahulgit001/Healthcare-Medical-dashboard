@@ -1,54 +1,321 @@
 import { motion } from "framer-motion";
-import { CalendarClock, HeartPulse, Pill, Plus, Leaf, Circle } from "lucide-react";
+import {
+  CalendarClock,
+  Stethoscope,
+  HeartPulse,
+  Activity,
+  ShieldCheck,
+} from "lucide-react";
 import { doctorProfile } from "../../data/dummyData";
-import DoctorIllustration from "../../assets/doctor.svg";
 
 export default function Hero() {
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 16 }}
+    <motion.section
+      initial={{ opacity: 0, y: 8 }}
       animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.5 }}
-      style={{
-        background: "linear-gradient(90deg,#F4F8FF 0%,#EEF6FF 100%)",
-        border: "1px solid #EEF2F7",
-      }}
-      className="relative overflow-hidden rounded-[28px] p-8 shadow-soft text-ink min-h-[280px]"
+      transition={{ duration: 0.35 }}
+      className="
+        relative
+        w-full
+        min-h-[180px]
+        overflow-hidden
+        rounded-xl
+        border
+        border-[#E3E8EE]
+        bg-gradient-to-r
+        from-[#F4F8FF]
+        via-[#F7F5FF]
+        to-[#F1FCF5]
+        px-5
+        py-5
+        shadow-[0_4px_16px_rgba(18,48,74,0.06)]
+
+        sm:px-6
+        sm:py-5
+
+        lg:min-h-[190px]
+      "
     >
-      {/* Decorative Shapes */}
-      <div className="absolute -top-16 -right-10 w-64 h-64 rounded-full bg-white/10 blur-2xl"></div>
+      {/* =====================================================
+          MAIN CONTENT
+      ====================================================== */}
 
-      <div className="absolute bottom-0 right-24 w-40 h-40 rounded-full bg-white/10 blur-xl"></div>
+      <div
+        className="
+          relative
+          flex
+          min-h-[140px]
+          items-center
+          justify-between
+          gap-5
+        "
+      >
+        {/* =================================================
+            LEFT CONTENT
+        ================================================== */}
 
-      <div className="relative flex items-center justify-between h-full">
-        {/* Left */}
-        <div className="w-[65%]">
-          <div className="inline-flex items-center gap-2 rounded-full bg-white/90 px-3 py-2 text-xs font-semibold text-ink shadow-soft mb-4">
-            <span className="inline-flex h-2.5 w-2.5 rounded-full bg-primary" />
+        <div className="min-w-0 flex-1">
+          {/* Status */}
+          <div
+            className="
+              mb-2.5
+              inline-flex
+              h-7
+              items-center
+              gap-2
+              rounded-full
+              border
+              border-[#DDF4F2]
+              bg-white
+              px-3
+              text-[11px]
+              font-semibold
+              text-[#12304A]
+              shadow-sm
+            "
+          >
+            <span
+              className="
+                h-2
+                w-2
+                rounded-full
+                bg-[#22C55E]
+                shadow-[0_0_0_3px_rgba(34,197,94,0.12)]
+              "
+            />
+
             24 appointments scheduled today
           </div>
 
-          <h1 className="font-bold mb-3 text-[28px] leading-tight">
+          {/* Heading */}
+          <h1
+            className="
+              text-[22px]
+              font-bold
+              leading-7
+              text-[#12304A]
+
+              sm:text-[24px]
+              sm:leading-8
+            "
+          >
             Welcome back, {doctorProfile.name}
           </h1>
 
-          <p className="text-base leading-7 text-muted max-w-2xl mb-6">Everything is on track — review patient activity, appointments, and clinical insights at a glance.</p>
+          {/* Description */}
+          <p
+            className="
+              mt-1
+              max-w-[580px]
+              text-[13px]
+              leading-5
+              text-[#6B7785]
 
-          <motion.button
-            whileHover={{ scale: 1.04 }}
-            whileTap={{ scale: 0.98 }}
-            className="inline-flex items-center gap-3 bg-white text-primary px-6 h-[50px] rounded-[20px] shadow-soft font-semibold"
+              sm:text-[14px]
+            "
           >
-            <CalendarClock size={18} />
+            Review patient activity, appointments, and clinical
+            insights at a glance.
+          </p>
+
+          {/* Button */}
+          <motion.button
+            type="button"
+            whileHover={{ y: -1 }}
+            whileTap={{ scale: 0.98 }}
+            className="
+              mt-3.5
+              inline-flex
+              h-10
+              items-center
+              gap-2
+              rounded-md
+              bg-[#159A9C]
+              px-4
+              text-[13px]
+              font-semibold
+              text-white
+              shadow-[0_4px_10px_rgba(21,154,156,0.20)]
+              transition-colors
+
+              hover:bg-[#128789]
+
+              focus:outline-none
+              focus-visible:ring-2
+              focus-visible:ring-[#4CB8C4]
+              focus-visible:ring-offset-2
+            "
+          >
+            <CalendarClock size={17} />
+
             View Schedule
           </motion.button>
         </div>
 
-        {/* Right */}
-        <div className="w-[35%] flex items-center justify-end">
-          <img src={DoctorIllustration} alt="Doctor illustration" className="w-56 h-40 object-contain" />
+        {/* =================================================
+            RIGHT MEDICAL VISUAL
+        ================================================== */}
+
+        <div
+          className="
+            hidden
+            shrink-0
+            items-center
+            justify-center
+            md:flex
+            md:w-[190px]
+
+            lg:w-[220px]
+          "
+        >
+          <div
+            className="
+              relative
+              flex
+              h-[135px]
+              w-[175px]
+              items-center
+              justify-center
+              overflow-hidden
+              rounded-xl
+              border
+              border-white/80
+              bg-gradient-to-br
+              from-[#EFF6FF]
+              via-[#F5F3FF]
+              to-[#F0FDF4]
+              shadow-[0_8px_24px_rgba(59,130,246,0.10)]
+            "
+          >
+            {/* Background circles */}
+
+            <div
+              className="
+                absolute
+                -right-8
+                -top-8
+                h-24
+                w-24
+                rounded-full
+                bg-[#3B82F6]/10
+              "
+            />
+
+            <div
+              className="
+                absolute
+                -bottom-8
+                -left-8
+                h-24
+                w-24
+                rounded-full
+                bg-[#8B5CF6]/10
+              "
+            />
+
+            {/* Main Stethoscope */}
+
+            <div
+              className="
+                relative
+                flex
+                h-[82px]
+                w-[82px]
+                items-center
+                justify-center
+                rounded-full
+                bg-white
+                shadow-[0_6px_20px_rgba(18,48,74,0.08)]
+              "
+            >
+              <Stethoscope
+                size={48}
+                strokeWidth={1.7}
+                className="text-[#3B82F6]"
+              />
+
+              {/* Heart badge */}
+
+              <div
+                className="
+                  absolute
+                  -right-1
+                  -top-1
+                  flex
+                  h-8
+                  w-8
+                  items-center
+                  justify-center
+                  rounded-full
+                  bg-[#8B5CF6]
+                  text-white
+                  shadow-[0_4px_10px_rgba(139,92,246,0.25)]
+                "
+              >
+                <HeartPulse
+                  size={16}
+                  strokeWidth={2.2}
+                />
+              </div>
+            </div>
+
+            {/* Heartbeat indicator */}
+
+            <div
+              className="
+                absolute
+                bottom-3
+                left-3
+                flex
+                items-center
+                gap-1.5
+                rounded-md
+                bg-white/90
+                px-2
+                py-1.5
+                shadow-sm
+              "
+            >
+              <Activity
+                size={14}
+                className="text-[#22C55E]"
+              />
+
+              <span
+                className="
+                  text-[10px]
+                  font-bold
+                  text-[#17212B]
+                "
+              >
+                Healthy
+              </span>
+            </div>
+
+            {/* Status indicator */}
+
+            <div
+              className="
+                absolute
+                right-3
+                bottom-3
+                flex
+                h-7
+                w-7
+                items-center
+                justify-center
+                rounded-full
+                bg-[#22C55E]/10
+              "
+            >
+              <ShieldCheck
+                size={15}
+                className="text-[#22C55E]"
+              />
+            </div>
+          </div>
         </div>
       </div>
-    </motion.div>
+    </motion.section>
   );
 }

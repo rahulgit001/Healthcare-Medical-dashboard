@@ -1,3 +1,5 @@
+@import url("https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&display=swap");
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -13,15 +15,28 @@ body,
 }
 
 body {
-  font-family: "Inter", system-ui, sans-serif;
-  background-color: #f7f9fc;
-  color: #111827;
+  font-family: "DM Sans", "Manrope", system-ui, sans-serif;
+  background-color: #f5f7fa;
+  color: #17212b;
+  line-height: 1.5;
   -webkit-font-smoothing: antialiased;
 }
 
 .dark body {
-  background-color: #0f1115;
-  color: #f3f4f6;
+  background-color: #0f172a;
+  color: #f8fafc;
+}
+
+button,
+input,
+select,
+textarea {
+  font: inherit;
+}
+
+:focus-visible {
+  outline: 2px solid #159a9c;
+  outline-offset: 2px;
 }
 
 ::-webkit-scrollbar {
@@ -41,13 +56,11 @@ body {
 }
 
 .glass {
-  background: rgba(255, 255, 255, 0.6);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
+  background: #ffffff;
 }
 
 .dark .glass {
-  background: rgba(23, 26, 33, 0.6);
+  background: #17212b;
 }
 
 .skeleton {
@@ -58,4 +71,16 @@ body {
     rgba(17, 24, 39, 0.06) 63%
   );
   background-size: 800px 100%;
+}
+
+.demographics-chart .recharts-tooltip-wrapper.recharts-tooltip-wrapper-right.recharts-tooltip-wrapper-top,
+.demographics-chart .recharts-tooltip-wrapper.recharts-tooltip-wrapper-right.recharts-tooltip-wrapper-bottom,
+.demographics-chart .recharts-tooltip-wrapper.recharts-tooltip-wrapper-left.recharts-tooltip-wrapper-top,
+.demographics-chart .recharts-tooltip-wrapper.recharts-tooltip-wrapper-left.recharts-tooltip-wrapper-bottom {
+  z-index: 20 !important;
+}
+
+.demographics-chart .recharts-layer.recharts-pie-sector {
+  position: relative;
+  z-index: 0;
 }

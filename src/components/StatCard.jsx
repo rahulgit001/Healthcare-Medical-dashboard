@@ -51,10 +51,7 @@ export default function StatCard({ stat, index = 0 }) {
         type: "spring",
         stiffness: 220,
       }}
-      whileHover={{
-        y: -8,
-        scale: 1.02,
-      }}
+      whileHover={{ y: -2 }}
       whileTap={{
         scale: 0.99,
       }}
@@ -62,16 +59,16 @@ export default function StatCard({ stat, index = 0 }) {
       group
       relative
       overflow-hidden
-      rounded-[28px]
-      border border-slate-200
+      rounded-lg
+      border border-[#E3E8EE]
       bg-white
-      dark:bg-slate-950
+      dark:bg-dark-card dark:border-dark-border
       shadow-soft
-      hover:shadow-[0_18px_48px_rgba(15,23,42,0.1)]
+      hover:shadow-lift
       transition-all
       duration-300
-      p-7
-      h-[280px]
+      p-4
+      h-[124px]
       "
     >
       {/* Background Glow */}
@@ -95,12 +92,6 @@ export default function StatCard({ stat, index = 0 }) {
         }}
       />
 
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(255,255,255,.35),transparent_45%)]" />
-
-      {/* Grid Pattern */}
-
-      <div className="absolute inset-0 opacity-[0.03] bg-[linear-gradient(to_right,#000_1px,transparent_1px),linear-gradient(to_bottom,#000_1px,transparent_1px)] bg-[size:10px_10px]" />
-
       <div className="relative z-10 flex justify-between items-start">
         {/* Icon */}
 
@@ -113,20 +104,18 @@ export default function StatCard({ stat, index = 0 }) {
           relative
           w-10
           h-10
-          rounded-3xl
+          rounded-lg
           flex
           items-center
           justify-center
-          shadow-xl
+          shadow-sm
           "
           style={{
             background: `linear-gradient(135deg, ${stat.color}, ${stat.color}99)`,
           }}
         >
-          <div className="absolute inset-0 rounded-3xl bg-white/20" />
-
           <Icon
-            size={30}
+            size={18}
             className="relative text-white"
           />
         </motion.div>
@@ -138,9 +127,9 @@ export default function StatCard({ stat, index = 0 }) {
           inline-flex
           items-center
           gap-1.5
-          px-3.5
-          py-1.5
-          rounded-full
+          px-2
+          py-1
+          rounded-md
           text-xs
           font-bold
           border
@@ -176,12 +165,11 @@ export default function StatCard({ stat, index = 0 }) {
           delay: 0.2,
         }}
         className="
-        mt-3
-        text-[32px]
+        mt-2
+        text-[24px]
         leading-none
-        font-black
-        tracking-tight
-        text-slate-900
+        font-bold
+        text-ink
         dark:text-white
         "
       >
@@ -190,13 +178,13 @@ export default function StatCard({ stat, index = 0 }) {
 
       {/* Label */}
 
-      <p className="mt-2 text-base font-medium text-slate-500 dark:text-slate-400">
+      <p className="mt-1 text-xs font-medium text-muted">
         {stat.label}
       </p>
 
       {/* Chart */}
 
-      <div className="h-16 mt-4 -mx-2">
+      <div className="absolute bottom-3 right-3 h-8 w-20 opacity-80">
         <ResponsiveContainer width="100%" height="100%">
           <AreaChart data={chartData}>
             <defs>
@@ -237,13 +225,13 @@ export default function StatCard({ stat, index = 0 }) {
 
       {/* Footer */}
 
-      <div className="flex items-center justify-between mt-4">
-        <span className="text-xs text-slate-400">
+      <div className="absolute bottom-4 left-4 flex items-center justify-between">
+        <span className="hidden text-[11px] text-muted">
           Updated just now
         </span>
 
         <span
-          className="text-sm font-semibold"
+          className="hidden text-xs font-semibold"
           style={{
             color: stat.color,
           }}

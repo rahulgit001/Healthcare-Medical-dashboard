@@ -41,17 +41,17 @@ export default function Navbar({ onMenuClick }) {
   const unread = notifications.filter((n) => n.unread).length;
 
   return (
-    <header className="sticky top-0 z-20 glass border-b border-gray-100 dark:border-dark-border">
-      <div className="flex items-center gap-5 px-4 sm:px-6 xl:px-10 py-0 h-[112px]">
+    <header className="sticky top-0 z-20 glass border-b border-[#E3E8EE] dark:border-dark-border">
+      <div className="flex h-16 items-center gap-4 px-4 py-0 md:h-[68px] md:px-6 lg:h-[76px] lg:px-10">
         <button
           onClick={onMenuClick}
-          className="lg:hidden text-muted hover:text-ink dark:hover:text-white"
+          className="flex h-10 w-10 items-center justify-center rounded-2xl text-muted hover:text-ink dark:hover:text-white lg:hidden"
           aria-label="Open sidebar menu"
         >
           <Menu size={22} />
         </button>
 
-        <div className="flex-1 min-w-0 max-w-[680px] relative">
+        <div className="relative min-w-0 max-w-[280px] flex-1">
           <Search
             size={20}
             className="absolute left-4 top-1/2 -translate-y-1/2 text-muted"
@@ -65,7 +65,8 @@ export default function Navbar({ onMenuClick }) {
             }}
             onFocus={() => setShowSearchPanel(true)}
             placeholder="Search patients, doctors, records..."
-            className="w-full pl-12 pr-4 h-[56px] rounded-[28px] bg-gray-50 dark:bg-white/5 border border-transparent
+            className="h-10 w-full rounded-md border border-[#E3E8EE] bg-[#F5F7FA] pl-12 pr-4
+            dark:border-dark-border dark:bg-white/5
             focus:border-primary/40 focus:bg-white dark:focus:bg-dark-card outline-none text-base
             text-ink dark:text-white placeholder:text-muted transition-all"
           />
@@ -75,7 +76,7 @@ export default function Navbar({ onMenuClick }) {
                 initial={{ opacity: 0, y: -10 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -10 }}
-                className="absolute left-0 right-0 top-[70px] z-40 rounded-[28px] bg-white dark:bg-dark-card border border-slate-200 dark:border-slate-700 shadow-lift p-4"
+                className="absolute left-0 right-0 top-[52px] z-40 rounded-lg border border-[#E3E8EE] bg-white p-4 shadow-lift dark:border-dark-border dark:bg-dark-card"
               >
                 <div className="grid gap-3">
                   {[
@@ -154,11 +155,11 @@ export default function Navbar({ onMenuClick }) {
           </AnimatePresence>
         </div>
 
-        <div className="ml-auto flex items-center gap-2 sm:gap-3">
+        <div className="ml-auto flex items-center gap-4">
           {/* Dark mode toggle */}
           <button
             onClick={toggleDark}
-            className="w-10 h-10 rounded-2xl flex items-center justify-center bg-gray-50 dark:bg-white/5
+            className="flex h-10 w-10 items-center justify-center rounded-md bg-[#F5F7FA] dark:bg-white/5
             text-muted hover:text-primary transition-colors"
           >
             <AnimatePresence mode="wait" initial={false}>
@@ -215,7 +216,7 @@ export default function Navbar({ onMenuClick }) {
           <div className="relative">
             <button
               onClick={() => setNotifOpen((v) => !v)}
-              className="relative w-11 h-11 rounded-2xl flex items-center justify-center bg-gray-50 dark:bg-white/5
+              className="relative flex h-10 w-10 items-center justify-center rounded-md bg-[#F5F7FA] dark:bg-white/5
               text-muted hover:text-primary transition-colors"
               aria-label="Open notifications"
             >
@@ -240,9 +241,9 @@ export default function Navbar({ onMenuClick }) {
           <div className="relative">
             <button
               onClick={() => setProfileOpen((v) => !v)}
-              className="flex items-center gap-3 pl-1 pr-2 sm:pr-3 h-[56px] rounded-2xl hover:bg-gray-50 dark:hover:bg-white/5 transition-colors"
+              className="flex h-10 items-center gap-4 rounded-2xl pl-1 pr-2 hover:bg-gray-50 dark:hover:bg-white/5 transition-colors"
             >
-              <div className="w-14 h-14 rounded-full bg-brand-gradient flex items-center justify-center text-white text-base font-semibold">
+              <div className="flex h-10 w-10 items-center justify-center rounded-full bg-[#DDF4F2] text-base font-semibold text-[#159A9C]">
                 {doctorProfile.avatar}
               </div>
               <div className="hidden sm:block text-left leading-tight">

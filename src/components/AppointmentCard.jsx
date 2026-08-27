@@ -18,9 +18,9 @@ export default function AppointmentCard({ appt, index, onClick }) {
       transition={{ type: "spring", stiffness: 260, damping: 22, delay: index * 0.06 }}
       whileHover={{ scale: 1.01 }}
       whileTap={{ scale: 0.995 }}
-      className="flex items-center gap-4 p-4 rounded-[20px] bg-slate-50 dark:bg-slate-900 hover:bg-white dark:hover:bg-slate-800 hover:shadow-soft transition-all min-w-0 min-h-0 box-border overflow-hidden h-[82px] w-full text-left"
+      className="flex h-[72px] w-full min-w-0 min-h-0 box-border items-center gap-3 overflow-hidden rounded-lg border border-[#E3E8EE] bg-[#F5F7FA] p-3 text-left transition-all hover:bg-white hover:shadow-soft dark:border-dark-border dark:bg-slate-900 dark:hover:bg-slate-800"
     >
-      <div className="w-[50px] h-[50px] rounded-full bg-brand-gradient flex items-center justify-center text-white text-sm font-bold shrink-0">
+      <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-[#DDF4F2] text-sm font-bold text-[#159A9C]">
         {appt.avatar}
       </div>
 
@@ -42,7 +42,7 @@ export default function AppointmentCard({ appt, index, onClick }) {
 
       <button
         disabled={appt.status === "Cancelled"}
-        className="hidden sm:inline-flex items-center gap-2 text-sm font-semibold text-[#4F7DFF] bg-[#4F7DFF]/10 hover:bg-[#4F7DFF]/20 disabled:opacity-40 disabled:cursor-not-allowed rounded-[16px] transition-colors shrink-0 px-4 py-2"
+        className="hidden h-9 shrink-0 items-center gap-2 rounded-md bg-[#DDF4F2] px-3 text-xs font-semibold text-[#159A9C] transition-colors hover:bg-[#159A9C]/20 disabled:cursor-not-allowed disabled:opacity-40 sm:inline-flex"
       >
         <Video size={14} />
         Join
