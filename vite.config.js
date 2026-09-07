@@ -12,7 +12,7 @@ import react from "@vitejs/plugin-react";
 
 export default defineConfig({
   plugins: [react()],
-  base: "/",
+  base: "/Healthcare-Medical-dashboard/",
   server: {
     port: 5173,
   },
