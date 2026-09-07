@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { AnimatePresence, motion } from "framer-motion";
 import {
   Search,
@@ -13,6 +14,7 @@ import {
 } from "lucide-react";
 import { useTheme } from "../../context/ThemeContext";
 import { useDashboard } from "../../context/DashboardContext";
+import { useAuth } from "../../context/AuthContext";
 import { doctorProfile } from "../../data/dummyData";
 import NotificationsPanel from "../widgets/Notifications";
 
@@ -20,6 +22,8 @@ const languages = ["English", "हिन्दी"];
 
 export default function Navbar({ onMenuClick }) {
   const { dark, toggleDark } = useTheme();
+  const navigate = useNavigate();
+  const { user, logout } = useAuth();
   const {
     notifications,
     searchQuery,
@@ -39,6 +43,19 @@ export default function Navbar({ onMenuClick }) {
   const [notifOpen, setNotifOpen] = useState(false);
   const [showSearchPanel, setShowSearchPanel] = useState(false);
   const unread = notifications.filter((n) => n.unread).length;
+
+  const handleLogout = () => {
+    logout();
+    navigate("/login");
+  };
+
+  const getInitials = (name) => {
+    return name
+      .split(" ")
+      .map((n) => n[0])
+      .join("")
+      .toUpperCase();
+  };
 
   return (
     <header className="sticky top-0 z-20 glass border-b border-[#E3E8EE] dark:border-dark-border">
@@ -244,13 +261,13 @@ export default function Navbar({ onMenuClick }) {
               className="flex h-10 items-center gap-4 rounded-2xl pl-1 pr-2 hover:bg-gray-50 dark:hover:bg-white/5 transition-colors"
             >
               <div className="flex h-10 w-10 items-center justify-center rounded-full bg-[#DDF4F2] text-base font-semibold text-[#159A9C]">
-                {doctorProfile.avatar}
+                {getInitials(user?.name || "User")}
               </div>
               <div className="hidden sm:block text-left leading-tight">
                 <p className="text-base font-semibold text-ink dark:text-white">
-                  {doctorProfile.name}
+                  {user?.name || "User"}
                 </p>
-                <p className="text-sm text-muted">{doctorProfile.role}</p>
+                <p className="text-sm text-muted capitalize">{user?.role || "guest"}</p>
               </div>
               <ChevronDown size={14} className="hidden sm:block text-muted" />
             </button>
@@ -266,21 +283,24 @@ export default function Navbar({ onMenuClick }) {
                   {[
                     { label: "Profile", icon: User },
                     { label: "Settings", icon: Settings },
-                    { label: "Logout", icon: LogOut, danger: true },
-                  ].map(({ label, icon: Icon, danger }) => (
+                  ].map(({ label, icon: Icon }) => (
                     <button
                       key={label}
-                      className={`w-full flex items-center gap-2.5 text-left px-3 py-2 rounded-xl text-sm transition-colors
-                      ${
-                        danger
-                          ? "text-danger hover:bg-danger/10"
-                          : "text-ink dark:text-white hover:bg-primary/10 hover:text-primary"
-                      }`}
+                      className="w-full flex items-center gap-2.5 text-left px-3 py-2 rounded-xl text-sm transition-colors
+                      text-ink dark:text-white hover:bg-primary/10 hover:text-primary"
                     >
                       <Icon size={16} />
                       {label}
                     </button>
                   ))}
+                  <button
+                    onClick={handleLogout}
+                    className="w-full flex items-center gap-2.5 text-left px-3 py-2 rounded-xl text-sm transition-colors
+                    text-danger hover:bg-danger/10 mt-1 border-t border-gray-100 dark:border-dark-border pt-2"
+                  >
+                    <LogOut size={16} />
+                    Logout
+                  </button>
                 </motion.div>
               )}
             </AnimatePresence>
